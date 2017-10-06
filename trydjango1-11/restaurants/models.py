@@ -24,7 +24,6 @@ class RestaurantLocation(models.Model):
 # DB에 저장되기 전 unique slug를 generate하기
 def rl_pre_save_receiver(sender, instance, *args, **kwargs):
     print('saving...')
-    print(instance.timestamp)
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
