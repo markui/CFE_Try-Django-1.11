@@ -9,46 +9,54 @@ from .models import RestaurantLocation
 
 
 def restaurant_listview(request):
-	template_name = 'restaurants/restaurantlocation_list.html'
-	queryset = RestaurantLocation.objects.all()
-	context = {
-		"object_list": queryset
-	}
-	print(context)
-	return render(request, template_name, context)
+    template_name = 'restaurants/restaurantlocation_list.html'
+    queryset = RestaurantLocation.objects.all()
+    context = {
+        "object_list": queryset
+    }
+    print(context)
+    return render(request, template_name, context)
+
 
 class RestaurantListView(ListView):
-	# queryset = RestaurantLocation.objects.all()
-	# template_name = 'restaurants/restaurants_list.html'
+    # queryset = RestaurantLocation.objects.all()
+    # template_name = 'restaurants/restaurants_list.html'
 
-	def get_queryset(self):
-		print(self.kwargs)
-		slug = self.kwargs.get('slug')
-		if slug:
-			quesryset = RestaurantLocation.objects.filter(
-					Q(category__iexact=slug) |
-					Q(category__icontains=slug)
-				)
-		else:
-			queryset = RestaurantLocation.objects.all()
-		return queryset
+    def get_queryset(self):
+        print(self.kwargs)
+        slug = self.kwargs.get('slug')
+        if slug:
+            queryset = RestaurantLocation.objects.filter(
+                Q(category__iexact=slug) |
+                Q(category__icontains=slug)
+            )
+        else:
+            queryset = RestaurantLocation.objects.all()
+        return queryset
+
+        # def get_context_data(self, *args, **kwargs):
+        #     print(self.args)
+        #     print(self.kwargs)
+        #     context = super(RestaurantListView, self).get_context_data(*args, **kwargs)
+        #     print(context)
+        #     return context
 
 
 class RestaurantDetailView(DetailView):
-	queryset = RestaurantLocation.objects.all()
+    # you can filter it by user
+    queryset = RestaurantLocation.objects.all()
 
-	def get_object(self, *args, **kwargs):
-		rest_id = self.kwargs.get('rest_id')
-		obj = get_object_or_404(RestaurantLocation, id=rest_id)
-		return obj
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        obj = get_object_or_404(RestaurantLocation, slug=slug)
+        return obj
 
-	# def get_context_data(self, *args, **kwargs):
-	# 	print(self.kwargs)
-	# 	context = super(RestaurantDetailView, self).get_context_data(*args, **kwargs)
-	# 	print(context)
-	# 	return context
-
-
+    # def get_context_data(self, *args, **kwargs):
+    #     print(self.args)
+    #     print(self.kwargs)
+    #     context = super(RestaurantDetailView, self).get_context_data(*args, **kwargs)
+    #     print(context)
+    #     return context
 
 
 
@@ -105,7 +113,7 @@ class RestaurantDetailView(DetailView):
 # 	template_name = 'home.html'
 # 	def get_context_data(self, *args, **kwargs):
 # 		context = super(HomeView, self).get_context_data(*args, **kwargs)
-# 		num = Nonse
+# 		num = None
 # 		some_list = [
 # 			random.randint(0, 100000000),
 # 			random.randint(0, 100000000),
@@ -122,10 +130,3 @@ class RestaurantDetailView(DetailView):
 
 # 		print(context)
 # 		return context
-
-
-
-
-
-
-
