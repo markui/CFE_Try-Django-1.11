@@ -18,7 +18,7 @@
 ### 2. unique_slug_generator
 ### 3. Forms and Validation
 #### 3-1) forms, model forms (forms.py)
-##### * `clean_field()`, `clean()` methods
+* #####  `clean_field()`, `clean()` methods
 ##### form.errors, form.errors.non_field_errors(for example, errors raised in `clean()` method)
 #### 3-2) CBV; CreateView
 #### 3-3) Custom Validators (validators.py)
