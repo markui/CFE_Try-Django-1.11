@@ -36,6 +36,6 @@ class RestaurantLocationCreateForm(forms.ModelForm):
         if 'email' in email:
             raise forms.ValidationError('no email1')
 
-    def clean(self):
-        if self.cleaned_data.get('name') != self.cleaned_data.get('email'):
-            raise forms.ValidationError('non-field error!!')
+    # def clean(self):
+    #     if self.cleaned_data.get('name') != self.cleaned_data.get('email'):
+    #         raise forms.ValidationError('non-field error!!')

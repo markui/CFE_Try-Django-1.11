@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^contact/$', TemplateView.as_view(template_name="contact.html")),
     url(r'^restaurants/$', RestaurantListView.as_view()),
     # 밑의 slug와 겹치는 거 조심 - unique slug generator에서 해결해야함 / 밑에 url보다 먼저 정의해줘야 함
-    url(r'^restaurants/create/$', RestaurantCreateView.as_view()),
+    url(r'^restaurants/create/$', restaurant_createview),
     url(r'^restaurants/(?P<slug>[\w-]+)/$', RestaurantDetailView.as_view()),
     # url(r'^restaurants/$', restaurant_listview),
     # url(r'^restaurants/asian$', AsianRestaurantListView.as_view())

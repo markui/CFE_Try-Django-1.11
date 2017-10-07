@@ -15,11 +15,16 @@ def restaurant_createview(request):
 
     # is_valid calls clean methods
     if form.is_valid():
-        # customization
-        # like a pre_save signal
-        form.save()
-        # like a post_save signal
-        return HttpResponseRedirect('/restaurants/')
+        if request.user.is_authenticated():
+            instance = form.save(commit=False)
+            # customization
+            # like a pre_save signal
+            instance.owner = request.user
+            instance.save()
+            # like a post_save signal
+            return HttpResponseRedirect('/restaurants/')
+        else:
+            return HttpResponseRedirect('/login/')
     if form.errors:
         errors = form.errors
 
@@ -81,10 +86,16 @@ class RestaurantCreateView(CreateView):
     template_name = 'restaurants/form.html'
     success_url = '/restaurants/'
 
-    def get_context_data(self, **kwargs):
-        context = super(RestaurantCreateView, self).get_context_data()
-        print(context)
-        return context
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.owner = self.request.user
+        return super(RestaurantCreateView, self).form_valid(form)
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(RestaurantCreateView, self).get_context_data()
+    #     print(context)
+    #     return context
 
 
 
