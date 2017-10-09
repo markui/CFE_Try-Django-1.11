@@ -29,3 +29,8 @@
 * ##### `if request.user.is_authenticated():`, `instance=form.save(commit=False)` `instance.owner = request.user` `instance.save()`
 #### 4-2) Associate User to Data in CBV(CreateView)
 * ##### `def form_valid(self, form)` overriding
+#### 4-3) Login Required to View
+* ##### FBV: use ` @login_required` Decorator
+* ##### CBV: use `LoginRequiredMixin` Mixin
+* ##### for Default `login_url`, you can put it in `settings.LOGIN_URL`, and override them in views `login_url`
+
